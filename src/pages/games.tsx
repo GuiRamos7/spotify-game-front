@@ -9,7 +9,7 @@ import { GetServerSideProps } from 'next/types';
 import ReactAudioPlayer from 'react-audio-player';
 import { useRouter } from 'next/router';
 
-const Games = ({ songs, rightAnwserDefault, randomNumber }) => {
+const Games = ({ songs, rightAnwserDefault, randomNumber }: any) => {
   const [songsStep, setSongsStep] = useState<any>();
   const [step, setStep] = useState(0);
   const [rightAnwser, setRightAnwser] = useState<any>(rightAnwserDefault);
@@ -18,7 +18,7 @@ const Games = ({ songs, rightAnwserDefault, randomNumber }) => {
 
   const [started, setStarted] = useState(false);
   const [isOver, setIsOver] = useState(false);
-  const [selected, setSelected] = useState(undefined);
+  const [selected, setSelected] = useState<any>(undefined);
 
   useEffect(() => {
     started &&
@@ -70,7 +70,9 @@ const Games = ({ songs, rightAnwserDefault, randomNumber }) => {
               borderRadius='100px'
               alignSelf='center'
               onClick={() => {
-                document.querySelector('#song').play();
+                let audioPlayer: any = document.getElementById('song');
+
+                audioPlayer.play();
                 setStarted(true);
               }}
             >
@@ -120,16 +122,3 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 export default Games;
-
-{
-  /* <iframe
-  style='border-radius:12px'
-  src='https://open.spotify.com/embed/playlist/2QqTH1fyKnZGZ2wn50fuBp?utm_source=generator'
-  width='100%'
-  height='352'
-  frameBorder='0'
-  allowfullscreen=''
-  allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
-  loading='lazy'
-></iframe>; */
-}
