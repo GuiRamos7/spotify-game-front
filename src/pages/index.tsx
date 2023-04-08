@@ -25,10 +25,7 @@ const Home = () => {
       justify='center'
       direction='column'
     >
-      <Link
-        m='auto'
-        href='https://spotify-game-1wdatcpug-guiramos7.vercel.app/auth/redirect'
-      >
+      <Link m='auto' href='https://spotify-game-git-dev-guiramos7.vercel.app/'>
         <Button
           w='300px'
           borderRadius='100px'
