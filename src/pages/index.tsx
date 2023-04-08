@@ -1,52 +1,42 @@
-import axios from 'axios';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { Button, Flex, Link } from '@chakra-ui/react';
+import { parseCookies, setCookie } from 'nookies';
+import { useRouter } from 'next/router';
 
-import SongCard from '@/components/SongCard';
-import { Box, Flex } from '@chakra-ui/react';
-
-export default function Home() {
-  const [songs, setSongs] = useState([]);
+const Home = () => {
+  const { push } = useRouter();
 
   useEffect(() => {
-    localStorage.setItem('token', window.location.search.split('=')[1]);
-  }, []);
+    const cookies = parseCookies();
 
-  const getSomething = async () => {
-    const token = localStorage.getItem('token');
+    window.location.search &&
+      setCookie(null, 'spotifyToken', window.location.search.split('=')[1], {});
 
-    await (token &&
-      axios
-        .get('http://localhost:3000/spotify', {
-          headers: { Authorization: token },
-        })
-        .then((el) => {
-          setSongs(el.data?.tracks?.items);
-        }));
-  };
-
-  useEffect(() => {
-    getSomething();
-  }, []);
+    cookies.spotifyToken && push('/games');
+  }, [push]);
 
   return (
-    <>
-      <Link href='http://localhost:3000/auth/redirect'>
-        <button>Log in</button>
+    <Flex
+      w='100%'
+      my='6'
+      maxW={1480}
+      mx='auto'
+      px='6'
+      justify='center'
+      direction='column'
+    >
+      <Link m='auto' href='http://localhost:3000/auth/redirect'>
+        <Button
+          w='300px'
+          borderRadius='100px'
+          backgroundColor='#1cd760'
+          _hover={{ backgroundColor: '#179b48' }}
+        >
+          Login with Spotify
+        </Button>
       </Link>
-
-      <Flex w='100%' my='6' maxW={1480} mx='auto' px='6' wrap='wrap' gap='30px'>
-        {songs?.map((song: any, idx: number) => (
-          <SongCard
-            key={`${idx}-key`}
-            imageUrl={song.track.album.images[0].url}
-            title={song.track.name}
-            artist={song?.track.artists
-              ?.map((artist: any) => `${artist.name}`)
-              .join(', ')}
-          />
-        ))}
-      </Flex>
-    </>
+    </Flex>
   );
-}
+};
+
+export default Home;

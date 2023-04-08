@@ -7,12 +7,16 @@ interface ISongCard {
   imageUrl: string;
   title: string;
   artist: string;
+  onClick: () => void;
+  isCorrect: boolean | undefined;
 }
 
 const SongCard: React.FC<ISongCard> = ({
   artist,
   imageUrl,
   title,
+  onClick,
+  isCorrect,
 }: ISongCard) => {
   return (
     <S.Flex
@@ -21,6 +25,8 @@ const SongCard: React.FC<ISongCard> = ({
       boxSizing='border-box'
       borderRadius='15px'
       position='relative'
+      onClick={onClick}
+      isCorrect={isCorrect}
     >
       <Image
         src={imageUrl}

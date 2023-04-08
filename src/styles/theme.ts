@@ -15,10 +15,10 @@ export const theme = extendTheme({
       '50': '#EEEEF2',
     },
     green: {
-      '500': 'b4e4c8',
+      '500': '#b4e4c8',
     },
     red: {
-      '500': 'db8989',
+      '500': '#db8989',
     },
   },
   styles: {
