@@ -20,6 +20,8 @@ const Games = ({ songs, rightAnwserDefault, randomNumber }: any) => {
   const [isOver, setIsOver] = useState(false);
   const [selected, setSelected] = useState<any>(undefined);
 
+  use;
+
   useEffect(() => {
     started &&
       setTimeout(() => {
@@ -104,7 +106,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const randomNumber = Math.floor(Math.random() * (4 - 0 + 1) + 0);
   let rightAnwserDefault;
   const songs = await axios
-    .get('http://localhost:3000/spotify', {
+    .get('https://spotify-game-git-dev-guiramos7.vercel.app/spotify', {
       headers: { Authorization: token },
     })
     .then((el) => {
