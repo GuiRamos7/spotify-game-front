@@ -1,9 +1,9 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '@/styles/Home.module.css';
+import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+
+import SongCard from '@/components/SongCard';
+import { Box, Flex } from '@chakra-ui/react';
 
 export default function Home() {
   const [songs, setSongs] = useState([]);
@@ -33,18 +33,20 @@ export default function Home() {
     <>
       <Link href='http://localhost:3000/auth/redirect'>
         <button>Log in</button>
-
-        {songs?.map((song: any, idx: number) => (
-          <div key={`${idx}-key`}>
-            <Image
-              src={song.track.album.images[0].url}
-              alt='asd aldsasdkl'
-              width={150}
-              height={150}
-            />
-          </div>
-        ))}
       </Link>
+
+      <Flex w='100%' my='6' maxW={1480} mx='auto' px='6' wrap='wrap' gap='30px'>
+        {songs?.map((song: any, idx: number) => (
+          <SongCard
+            key={`${idx}-key`}
+            imageUrl={song.track.album.images[0].url}
+            title={song.track.name}
+            artist={song?.track.artists
+              ?.map((artist: any) => `${artist.name}`)
+              .join(', ')}
+          />
+        ))}
+      </Flex>
     </>
   );
 }
