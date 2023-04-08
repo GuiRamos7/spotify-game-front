@@ -20,8 +20,6 @@ const Games = ({ songs, rightAnwserDefault, randomNumber }: any) => {
   const [isOver, setIsOver] = useState(false);
   const [selected, setSelected] = useState<any>(undefined);
 
-  use;
-
   useEffect(() => {
     started &&
       setTimeout(() => {
